@@ -4,9 +4,13 @@
 use CantinaPoker\Casino\HoldEm;
 use CantinaPoker\Casino\PokerDeck;
 use CantinaPoker\Patrons\Player;
-use CantinaPoker\Patrons\Hand;
 
 
+//start Timer
+$mtime = microtime();
+$mtime = explode(" ",$mtime);
+$mtime = $mtime[1] + $mtime[0];
+$starttime = $mtime;
 
 
 include 'init.php';
@@ -23,9 +27,7 @@ function playPoker()
     echo "\n--------- NEW GAME ---------\n";
     $gameOfPoker = new HoldEm(array($player1, $player2, $player3, $player4,$player5), $deckOCards);
     $gameOfPoker->shuffleUpAndDeal();
-//    $gameOfPoker->dealHands();
 
-    //Comment Out "showHands to Hide Hands";
     $gameOfPoker->flipEm();
 
 //    $gameOfPoker->dealCommunityCards();
@@ -41,3 +43,46 @@ function playPoker()
     return $highScore;
 }
 
+
+$gamesPlayed = 0;
+$highestHandScore = 0;
+// set the handbrake to the minimum hand point value you wish to break on...Minimum should be one more than the h
+$whileLoopHandBrake = 1;
+
+//counting array for stats of how many types of hands won before the royal flush hit.
+$handName = array(
+    1 =>0,
+    2 =>0,
+    3 =>0,
+    4 =>0,
+    5 =>0,
+    6 =>0,
+    7 =>0,
+    8 => 0,
+    9 => 0,
+    10=>0
+);
+
+while ($highestHandScore < $whileLoopHandBrake)
+{
+    $highestHandScore = playPoker();
+    $handName[$highestHandScore]++;
+    $gamesPlayed++;
+}
+
+
+
+
+$mtime = microtime();
+$mtime = explode(" ",$mtime);
+$mtime = $mtime[1] + $mtime[0];
+$endtime = $mtime;
+$totaltime = ($endtime - $starttime);
+
+/* Hide Stats for now.
+echo "\nScript ran for ".$totaltime." seconds.\n";
+echo "Total Games Played: $gamesPlayed\n";
+echo "Other Hand Counts: \n";
+print_r($handName);
+
+*/
