@@ -1,8 +1,6 @@
 <?php namespace CantinaPoker\Models;
 
 
-use Exception;
-
 class PokerGame
 {
 
@@ -22,7 +20,7 @@ class PokerGame
 		{
 			if (count($players) > $this->seats)
 			 {
-			 	throw new Exception("Sorry, there are too many players");
+			 	throw new \InvalidArgumentException("Sorry, there are too many players");
 
 			}
 			else

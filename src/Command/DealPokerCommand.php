@@ -4,12 +4,15 @@ use CantinaPoker\Models\Deck;
 use CantinaPoker\Models\PokerGame;
 use CantinaPoker\Models\PokerTable;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
 class DealPokerCommand extends Command
 {
+    private $output;
+
     protected function configure()
     {
         $this->setName("poker:start");
@@ -19,6 +22,8 @@ class DealPokerCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->output = $output;
+
         $helper = $this->getHelper('question');
 
         $question = new Question(
@@ -32,16 +37,14 @@ class DealPokerCommand extends Command
             . "\n (Including Yourself)");
         }
 
-        $output->writeln($playerTotal . " players sit around the table");
+        $output->writeln($playerTotal . " other players stand around the table");
 
-        $pokerTable = new PokerTable($playerTotal);
-        $playersInGame = $pokerTable->createTable();
+        $game = $this->prepareGame($playerTotal);
 
-        $deck = new Deck();
-        $output->writeln('<comment>--- THE PLAYERS TAKE THEIR SEATS ---</comment>');
-        $game = new PokerGame($deck, $playersInGame);
-        $game->shuffleCards();
-        $game->dealHands();
+        $output->writeln('<comment>--- PLAYERS TAKE THEIR SEATS ---</comment>');
+
+        $this->preFlop($game);
+
         $game->showHands();
         $game->dealCommunityCards();
         $game->showCommunityCards();
@@ -51,6 +54,45 @@ class DealPokerCommand extends Command
         $game->showBestHands();
 
         $winner = $game->getWinner();
+    }
+
+    public function prepareGame($numberOfPlayers)
+    {
+        $pokerTable = new PokerTable($numberOfPlayers);
+        $playersInGame = $pokerTable->createTable();
+        $deck = new Deck();
+        return new PokerGame($deck, $playersInGame);
+    }
+
+    public function preFlop(PokerGame $pokerGame)
+    {
+        $pokerGame->shuffleCards();
+        $pokerGame->dealHands();
+        $this->viewHoleCards($pokerGame);
+
+    }
+
+    private function viewHoleCards(PokerGame $pokerGame)
+    {
+        foreach($pokerGame->pokerPlayers as $player)
+        {
+//            var_dump($player->gameHand->getCards());
+            $player->showHand();
+//            die();
+        }
+
+        $table = new Table($this->output);
+        $table
+            ->setHeaders(['Hole 1', 'Hole 2'])
+            ->setRows([
+                ['C-1', 'C-2']
+            ]);
+
+        $this->output->write("\n");
+
+        $table->render($this->output);
+
+
 
     }
 }

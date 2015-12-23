@@ -5,7 +5,7 @@ class Player {
 
 	public $playerName;
 	//this will include the community cards when they are up.
-	private $gameHand;
+	public $gameHand;
 	//this is the hand score for the bestHand
 	private $handScore;
 	//THIS IS AN ARRAY, not a PokerHand Object of the best hand of the player
