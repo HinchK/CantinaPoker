@@ -1,5 +1,7 @@
 <?php namespace CantinaPoker\Command;
 
+use CantinaPoker\Models\Deck;
+use CantinaPoker\Models\PokerGame;
 use CantinaPoker\Models\PokerTable;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -31,7 +33,23 @@ class DealPokerCommand extends Command
 
         $output->writeln($playerTotal . " players sit around the table");
 
-        $table = new PokerTable($playerTotal);
+        $pokerTable = new PokerTable($playerTotal);
+        $playersInGame = $pokerTable->createTable();
+
+        $deck = new Deck();
+        $output->writeln('<comment>--- THE PLAYERS TAKE THEIR SEATS ---</comment>');
+        $game = new PokerGame($deck, $playersInGame);
+        $game->shuffleCards();
+        $game->dealHands();
+        $game->showHands();
+        $game->dealCommunityCards();
+        $game->showCommunityCards();
+
+        $game->scoreHand();
+
+        $game->showBestHands();
+
+        $winner = $game->getWinner();
 
     }
 }
