@@ -220,12 +220,15 @@ class PokerGame
 
 	public function showCommunityCards()
 	{
-		echo "\nCommunity Cards: \n";
+//		echo "\nCommunity Cards: \n";
+
+        $boardViewer = [];
 		foreach($this->communityCards as $card)
 		{
-			$card->displayCard();
+			$boardViewer[] = $card->displayCard();
 		}
-		echo "\n\n";
+        return $boardViewer;
+//		echo "\n\n";
 	}
 
 

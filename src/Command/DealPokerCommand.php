@@ -45,10 +45,9 @@ class DealPokerCommand extends Command
 
         $this->preFlop($game);
 
-//        $this->flopTurnRiver($game);
-        
-        $game->dealCommunityCards();
-        $game->showCommunityCards();
+        $this->flopTurnRiver($game);
+
+// ALMOST!@
 
         $game->scoreHand();
 
@@ -75,6 +74,16 @@ class DealPokerCommand extends Command
 
     public function flopTurnRiver(PokerGame $pokerGame)
     {
+        $pokerGame->dealCommunityCards();
+        $sharedCards = $pokerGame->showCommunityCards();
+
+        $table = new Table($this->output);
+        $table->setHeaders(['Flop', 'Flop', 'Flop', 'Turn', 'River']);
+        $table->setRows([
+            $sharedCards
+        ]);
+
+        $table->render($this->output);
 
     }
 
