@@ -45,7 +45,8 @@ class DealPokerCommand extends Command
 
         $this->preFlop($game);
 
-        $game->showHands();
+//        $this->flopTurnRiver($game);
+        
         $game->dealCommunityCards();
         $game->showCommunityCards();
 
@@ -72,27 +73,36 @@ class DealPokerCommand extends Command
 
     }
 
+    public function flopTurnRiver(PokerGame $pokerGame)
+    {
+
+    }
+
     private function viewHoleCards(PokerGame $pokerGame)
     {
-        foreach($pokerGame->pokerPlayers as $player)
-        {
-//            var_dump($player->gameHand->getCards());
-            $player->showHand();
-//            die();
-        }
 
         $table = new Table($this->output);
         $table
-            ->setHeaders(['Hole 1', 'Hole 2'])
-            ->setRows([
-                ['C-1', 'C-2']
-            ]);
+            ->setHeaders(['Card1', 'Card2']);
 
-        $this->output->write("\n");
+        foreach($pokerGame->pokerPlayers as $player)
+        {
+            $viewHand = $player->showHand();
+            $table->setRows([
+                 $viewHand
+            ]);
+            $table->render($this->output);
+
+        }
+        $table
+            ->setHeaders(['HOLE-CARD', 'Your other HOLE-CARD']);
+        $myHand = $pokerGame->hero->showHand();
+
+        $table->setRows([
+            $myHand
+        ]);
 
         $table->render($this->output);
-
-
 
     }
 }

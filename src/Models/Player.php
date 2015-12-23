@@ -42,13 +42,16 @@ class Player {
 	//display the player's game hand.
 	public function showHand()
 	{
+		$handViewer = [];
 		$cards = $this->gameHand->getCards();
 		echo "\n$this->playerName: ";
 		foreach($cards as $card)
 		{
-			$card->displayCard();
+			$handViewer[] = $card->displayCard();
 		}
 		echo "\n";
+
+		return $handViewer;
 
 	}
 
