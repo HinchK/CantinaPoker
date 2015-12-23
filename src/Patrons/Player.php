@@ -8,11 +8,13 @@ class Player
 {
     public $playerName;
 
-    private $playerHand;
+    private $hand;
 
     private $handScore;
 
     private $bestHand;
+
+
 
 
 
@@ -38,9 +40,9 @@ class Player
         10=> "a ROYAL FLUSH ! "
     );
 
-    public function newHand($playerHand) {
+    public function newHand($hand) {
 
-        $this->playerHand = $playerHand;
+        $this->hand = $hand;
 
     }
 
@@ -162,15 +164,13 @@ class Player
     //sort the hand
     public function sortHand()
     {
-        $this->playerHand->sortHand();
+         sortHand();
 
     }
 
     /**
      * TODO: scoring system heart transplant
      *
-     * is it possible to roundhouse oneself?
-     * perhaps thats a koan
      *
      * not giving up on my own scoring system
      *
@@ -179,7 +179,7 @@ class Player
     public function scoreHand()
     {
         /* Sort all 7 cards. All future subhands will be in decending order, so we don't have to sort again */
-        $this->sortHand();
+       $this->sortHand();
         $this->handScore = 0;
         for($card1=0; $card1 < 3 AND $this->handScore < 10; $card1++)
         {
@@ -192,7 +192,7 @@ class Player
                         for($card5=$card4+1; $card5 < 7 AND $this->handScore < 10; $card5++)
                         {
                             //get 5 combinations of cards
-                            $newHandOfFiveCards = new PokerHand(
+                            $newHandOfFiveCards = new Hand(
                                 $this->hand->getCard($card1),
                                 $this->hand->getCard($card2),
                                 $this->hand->getCard($card3),

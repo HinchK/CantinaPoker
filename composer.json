@@ -2,15 +2,15 @@
     "name": "hinchk/CantinaPoker",
     "description": "CantinaPoker",
     "require": {
-        "php": ">=5.4",
+        "php": ">=5.5",
         "symfony/console": "~2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "CantinaPoker\\": "src/"
+        }
     },
     "require-dev": {
         "laravel/homestead": "^2.1"
-    },
-    "autoload": {
-        "psr-0": {
-            "CantinaPoker\\": "src/"
-        }
     }
 }
