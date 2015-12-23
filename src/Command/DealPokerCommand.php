@@ -91,8 +91,7 @@ class DealPokerCommand extends Command
     {
 
         $table = new Table($this->output);
-        $table
-            ->setHeaders(['Card1', 'Card2']);
+        $table->setHeaders(['CARD', 'CARD']);
 
         foreach($pokerGame->pokerPlayers as $player)
         {
@@ -101,10 +100,8 @@ class DealPokerCommand extends Command
                  $viewHand
             ]);
             $table->render($this->output);
-
         }
-        $table
-            ->setHeaders(['HOLE-CARD', 'Your other HOLE-CARD']);
+        $table->setHeaders(['HOLE-CARD', 'HOLE-CARD']);
         $myHand = $pokerGame->hero->showHand();
 
         $table->setRows([
