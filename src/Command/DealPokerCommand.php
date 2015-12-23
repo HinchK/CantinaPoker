@@ -1,5 +1,6 @@
 <?php namespace CantinaPoker\Command;
 
+use CantinaPoker\Models\PokerTable;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -29,6 +30,8 @@ class DealPokerCommand extends Command
         }
 
         $output->writeln($playerTotal . " players sit around the table");
+
+        $table = new PokerTable($playerTotal);
 
     }
 }

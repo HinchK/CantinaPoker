@@ -1,5 +1,8 @@
 <?php namespace CantinaPoker\Models;
-class PokerGame  {
+
+
+class PokerGame
+{
 
 
 	public $seats =5;
