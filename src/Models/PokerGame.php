@@ -142,20 +142,18 @@ class PokerGame
 		}
 		if(count($highScoreArray) > 1)
 		{
-			echo "\n-------------------\nIt is a tie between: \n-----------------";
+			echo "\n-------------------\nIt is a tie!!! " . "\n\n";
+            $tieWinners = [];
 			foreach ($highScoreArray as $tiePlayer) {
-				$tiePlayer[1]->showGameWinner();
+				$tieWinners[] = $tiePlayer[1]->showGameWinner();
 			}
-            return $highScore;
+            return $tieWinners[0];
 		}
 		else
 		{
-			echo "\n-------------------\nThe Winner is: \n-------------------";
-
 			return $highScoreArray[0][1]->showGameWinner();
 		}
 //		return $highScore;
-
 	}
 
 	public function scoreHand()

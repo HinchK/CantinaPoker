@@ -5,6 +5,7 @@ use CantinaPoker\Models\PokerGame;
 use CantinaPoker\Models\PokerTable;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Helper\TableStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
@@ -44,15 +45,14 @@ class DealPokerCommand extends Command
         $output->writeln('<comment>--- PLAYERS TAKE THEIR SEATS ---</comment>');
 
         $this->preFlop($game);
-
         $this->flopTurnRiver($game);
-
-// ALMOST!@
+        $output->writeln('<comment>--- SHOW YOUR HANDS ---</comment>');
         $this->showDown($game);
-//        $winner = $game->getWinner();
-        $winner = $this->declareWinner($game);
+        $output->writeln('.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.');
+        $output->writeln('<fg=black;bg=cyan>------------------ THE WINNER IS: -------------------</>');
+        $this->declareWinner($game);
 
-//        $output->writeln($winner);
+
     }
 
     private function prepareGame($numberOfPlayers)
@@ -112,8 +112,15 @@ class DealPokerCommand extends Command
 
     private function declareWinner(PokerGame $pokerGame)
     {
-//        $pokerGame->showBestHands();
+        $style = new TableStyle();
+        $style
+            ->setVerticalBorderChar('<fg=red;bg=black>|</>')
+            ->setHorizontalBorderChar('<fg=red;bg=black>-</>')
+        ;
         $winningHand = $pokerGame->getWinner();
+
+//        echo "printing winninghand";
+//        print_r($winningHand);
 
         $table = new Table($this->output);
 
