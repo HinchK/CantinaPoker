@@ -4,7 +4,6 @@
 class PokerGame
 {
 
-
 	public $seats = 9;
 
 	public $pokerPlayers;
@@ -145,15 +144,17 @@ class PokerGame
 		{
 			echo "\n-------------------\nIt is a tie between: \n-----------------";
 			foreach ($highScoreArray as $tiePlayer) {
-				$tiePlayer[1]->showBestHand();
+				$tiePlayer[1]->showGameWinner();
 			}
+            return $highScore;
 		}
 		else
 		{
 			echo "\n-------------------\nThe Winner is: \n-------------------";
-			$highScoreArray[0][1]->showBestHand();
+
+			return $highScoreArray[0][1]->showGameWinner();
 		}
-		return $highScore;
+//		return $highScore;
 
 	}
 

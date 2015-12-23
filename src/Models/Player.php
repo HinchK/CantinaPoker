@@ -102,14 +102,18 @@ class Player {
 	{
 		try
 		{
+			$handTotal = [];
 			//Best Hand is not a pokerhand object in this case.
 			$cards = $this->bestHand->getCards();
-			echo "\n$this->playerName with " . $this->handName[$this->handScore] . ": \n";
+			//echo "\n$this->playerName with " . $this->handName[$this->handScore] . ": \n";
+			$handTotal[] = $this->playerName;
 			foreach($cards as $card)
 			{
-				$card->displayCard();
+				$handTotal[] = $card->displayCard();
 			}
-			echo "\n";
+			$handTotal[] = $this->handName[$this->handScore];
+
+			return $handTotal;
 		}
 		catch(Exception $e)
 		{
@@ -130,6 +134,27 @@ class Player {
 	{
 		$this->gameHand->sortHand();
 
+	}
+
+		//Display to the console the best hand
+	public function showGameWinner()
+	{
+		try
+		{
+			$winner = [];
+			//Best Hand is not a pokerhand object in this case.
+			$cards = $this->bestHand->getCards();
+			echo "\n$this->playerName with " . $this->handName[$this->handScore] . ": \n";
+			foreach($cards as $card)
+			{
+				$winner[] = $card->displayCard();
+			}
+			return $winner;
+		}
+		catch(Exception $e)
+		{
+			echo 'Error: ' . $e->getMessage() . "\n";
+		}
 	}
 
 	//Make all (21) five combinations of cards and score them.

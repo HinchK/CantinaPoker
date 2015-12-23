@@ -48,15 +48,14 @@ class DealPokerCommand extends Command
         $this->flopTurnRiver($game);
 
 // ALMOST!@
+        $this->showDown($game);
+//        $winner = $game->getWinner();
+        $winner = $this->declareWinner($game);
 
-        $game->scoreHand();
-
-        $game->showBestHands();
-
-        $winner = $game->getWinner();
+//        $output->writeln($winner);
     }
 
-    public function prepareGame($numberOfPlayers)
+    private function prepareGame($numberOfPlayers)
     {
         $pokerTable = new PokerTable($numberOfPlayers);
         $playersInGame = $pokerTable->createTable();
@@ -64,7 +63,7 @@ class DealPokerCommand extends Command
         return new PokerGame($deck, $playersInGame);
     }
 
-    public function preFlop(PokerGame $pokerGame)
+    private function preFlop(PokerGame $pokerGame)
     {
         $pokerGame->shuffleCards();
         $pokerGame->dealHands();
@@ -72,7 +71,7 @@ class DealPokerCommand extends Command
 
     }
 
-    public function flopTurnRiver(PokerGame $pokerGame)
+    private function flopTurnRiver(PokerGame $pokerGame)
     {
         $pokerGame->dealCommunityCards();
         $sharedCards = $pokerGame->showCommunityCards();
@@ -84,6 +83,45 @@ class DealPokerCommand extends Command
         ]);
 
         $table->render($this->output);
+
+    }
+
+    private function showDown(PokerGame $pokerGame)
+    {
+        $pokerGame->scoreHand();
+
+        $table = new Table($this->output);
+
+        foreach($pokerGame->pokerPlayers as $player)
+        {
+            $finalHand = $player->showBestHand();
+            $table->addRows([
+                $finalHand
+            ]);
+        }
+
+            $finalHand = $pokerGame->hero->showBestHand();
+
+        $table->addRows([
+            $finalHand
+        ]);
+
+        $table->render($this->output);
+
+    }
+
+    private function declareWinner(PokerGame $pokerGame)
+    {
+//        $pokerGame->showBestHands();
+        $winningHand = $pokerGame->getWinner();
+
+        $table = new Table($this->output);
+
+        $table->setRows([
+            $winningHand
+        ]);
+
+        $table->render();
 
     }
 
