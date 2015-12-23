@@ -3,11 +3,11 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use CantinaPoker\Command\WelcomeCommand;
+use CantinaPoker\Command\DealPokerCommand;
 
 $console = new Application('Zeeto PHP Practical','0.1.1');
 $console->addCommands([
-    new WelcomeCommand()
+    new DealPokerCommand()
 ]);
-include ('poker.php');
+//include ('poker.php');
 $console->run();
