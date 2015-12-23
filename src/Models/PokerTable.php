@@ -5,7 +5,6 @@ class PokerTable
 {
     protected $players;
 
-
     public function __construct($numberOfPlayers)
     {
         $this->players = intval($numberOfPlayers);

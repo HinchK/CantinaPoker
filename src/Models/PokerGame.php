@@ -1,21 +1,23 @@
 <?php namespace CantinaPoker\Models;
 
 
+use Exception;
+
 class PokerGame
 {
 
 
-	public $seats =5;
+	public $seats = 9;
 
 	public $pokerPlayers;
 	public $cardDeck;
-	public $dealer;
+	public $hero;
 	public $communityCards;
 
 	public function __construct($deckOfCards, $players)
 	{
 		$this->cardDeck = $deckOfCards;
-		$this->dealer = new Player('DEALER');
+		$this->hero = new Player('YOU');
 		try
 		{
 			if (count($players) > $this->seats)
@@ -42,7 +44,7 @@ class PokerGame
 	{
 		try
 		{
-			if (count($pokerPlayers) >= $seats) //$dealer is included in the Poker Players
+			if (count($pokerPlayers) >= $seats) //$hero is included in the Poker Players
 			{
 				throw new Exception("No Seats Available");
 
@@ -66,7 +68,7 @@ class PokerGame
 			$scoreArray[$pokerPlayer->playerName] = array($pokerPlayer->getHandScore(), $pokerPlayer);
 
 		}
-		$scoreArray[$this->dealer->playerName] = array($this->dealer->getHandScore(), $this->dealer);
+		$scoreArray[$this->hero->playerName] = array($this->hero->getHandScore(), $this->hero);
 
 		$highScore = 0;
 		$highScoreArray = array();
@@ -167,8 +169,8 @@ class PokerGame
 			$player->scoreHand();
 
 		}
-		$this->dealer->loadCommunityCards($this->communityCards);
-		$this->dealer->scoreHand();
+		$this->hero->loadCommunityCards($this->communityCards);
+		$this->hero->scoreHand();
 
 	}
 
@@ -186,7 +188,7 @@ class PokerGame
 
 		}
 		$pokerHand = new PokerHand($this->cardDeck->getCard(), $this->cardDeck->getCard());
-		$this->dealer->newHand($pokerHand);
+		$this->hero->newHand($pokerHand);
 
 	}
 
@@ -196,7 +198,7 @@ class PokerGame
 		{
 			$players->showHand();
 		}
-		$this->dealer->showHand();
+		$this->hero->showHand();
 	}
 
 	public function showBestHands()
@@ -205,7 +207,7 @@ class PokerGame
 		{
 			$players->showBestHand();
 		}
-		$this->dealer->showBestHand();
+		$this->hero->showBestHand();
 	}
 
 	public function dealCommunityCards()
@@ -234,5 +236,3 @@ class PokerGame
 		$this->cardDeck->shuffleDeck();
 	}
 }
-
-?>
