@@ -163,15 +163,15 @@ class Player {
 		/* Sort all 7 cards. All future subhands will be in decending order, so we don't have to sort again */
 		$this->sortHand();
 		$this->handScore = 0;
-		for($card1=0; $card1 < 3 AND $this->handScore < 10; $card1++)
+		for($card1=0; $card1 < 3 && $this->handScore < 10; $card1++)
 		{
-			for($card2=$card1+1; $card2 < 4 AND $this->handScore < 10; $card2++)
+			for($card2=$card1+1; $card2 < 4 && $this->handScore < 10; $card2++)
 			{
-				for($card3=$card2+1; $card3 < 5 AND $this->handScore < 10 ; $card3++)
+				for($card3=$card2+1; $card3 < 5 && $this->handScore < 10 ; $card3++)
 				{
-					for($card4=$card3+1; $card4 < 6 AND $this->handScore < 10; $card4++)
+					for($card4=$card3+1; $card4 < 6 && $this->handScore < 10; $card4++)
 					{
-						for($card5=$card4+1; $card5 < 7 AND $this->handScore < 10; $card5++)
+						for($card5=$card4+1; $card5 < 7 && $this->handScore < 10; $card5++)
 						{
 							//get 5 combinations of cards
 							$newHandOfFiveCards = new PokerHand(
@@ -219,12 +219,12 @@ class Player {
 							$sumOfHand = $newHandOfFiveCards->handSum();
 							$sumOfBestHand = $this->bestHand->handSum();
 
-							//Must be 5 unique cards AND
+							//Must be 5 unique cards &&
 							// the sum must match the above algorithm computed from the first card, or
-							//the special case (sum 28) AND  Ace is the highcard (of a sorted hand)
-							if($currentValuesCount==5 AND
-								($sumOfHand == $straightAdd OR
-									($sumOfHand == 28 AND $newHandOfFiveCards->getCard(0)->getCardValue() ==14 )))
+							//the special case (sum 28) &&  Ace is the highcard (of a sorted hand)
+							if($currentValuesCount==5 &&
+								($sumOfHand == $straightAdd ||
+									($sumOfHand == 28 && $newHandOfFiveCards->getCard(0)->getCardValue() == 14 )))
 							{
 								$isStraight=TRUE;
 							}
@@ -295,14 +295,14 @@ class Player {
 										elseif($this->handScore ==9)
 										{
 											//if they aren't both WHEELS, compare the sums
-											if($sumOfHand != 28 AND  $sumOfBestHand != 28)
+											if($sumOfHand != 28 && $sumOfBestHand != 28)
 											{
 												if($sumOfHand > $sumOfBestHand)
 												{
 													$currentHandScore = 9;
 												}
 											}
-											elseif ($sumOfHand != 28 AND $sumOfBestHand==28)
+											elseif ($sumOfHand != 28 && $sumOfBestHand==28)
 											{	//if the current hand isn't Ace low, but the best hand is...replace it.
 												//otherwise, besthand is the same or higher.
 												$currentHandScore = 9;
@@ -404,14 +404,14 @@ class Player {
 									elseif($this->handScore ==5)
 									{
 										//if they aren't both wheels, compare the sums
-										if($sumOfHand != 28 AND  $sumOfBestHand != 28)
+										if($sumOfHand != 28 &&  $sumOfBestHand != 28)
 										{
 											if($sumOfHand > $sumOfBestHand)
 											{
 												$currentHandScore = 5;
 											}
 										}
-										elseif ($sumOfHand != 28 AND $sumOfBestHand==28)
+										elseif ($sumOfHand != 28 && $sumOfBestHand==28)
 										{	//if the current hand isn't Ace low, but the best hand is...replace it.
 											//otherwise, besthand is the same or higher.
 											$currentHandScore = 5;

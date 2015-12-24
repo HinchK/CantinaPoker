@@ -63,26 +63,14 @@ class Deck {
   	}
 
   	public  function getCard() {
-  		try
-  		{	//if the pointer is less than the deck size. Return a card
-  			if($this->cardPointer < $this->deckSize)
-  			{
 
-  				$cardOut = $this->fullDeck[$this->cardPointer];
-  				$this->cardPointer++;
-  				return $cardOut;
-
-  			}
-  			else {
-  				throw new Exception("Sorry, Out of Cards");
-
-  			}
-  		}
-  		catch(Exception $e)
+		if($this->cardPointer < $this->deckSize)
 		{
-			echo 'Error: ' . $e->getMessage() . "\n";
-		}
+			$cardOut = $this->fullDeck[$this->cardPointer];
+			$this->cardPointer++;
+			return $cardOut;
 
+		}
   	}
 
 }

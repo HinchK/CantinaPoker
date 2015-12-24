@@ -1,6 +1,8 @@
 <?php namespace CantinaPoker\Models;
 
 
+use Exception;
+
 class PokerGame
 {
 
@@ -94,11 +96,11 @@ class PokerGame
 			//	echo "\nArrayReturn\n";
 			//	print_r($arrayReturn);
 				//special case for straights
-				if($highScore == 9 OR $highScore ==5)
+				if($highScore == 9 || $highScore ==5)
 				{
 					$sumOfPlayer = $player[1]->getBestHand()->handSum();
 					$sumOfWinner = $winner[1]->getBestHand()->handSum();
-					if($sumOfPlayer != 28 AND  $sumOfWinner != 28)
+					if($sumOfPlayer != 28 &&  $sumOfWinner != 28)
 					{
 						if($sumOfPlayer == $sumOfWinner)
 						{
@@ -111,7 +113,7 @@ class PokerGame
 							$highScoreArray[] = $player;
 						}
 					}
-					elseif ($sumOfPlayer != 28 AND $sumOfWinner ==28)
+					elseif ($sumOfPlayer != 28 && $sumOfWinner ==28)
 					{
 						//reset the array to zero items because all previous items were ties.
 						$highScoreArray = array();

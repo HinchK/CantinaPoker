@@ -96,7 +96,7 @@ class PokerHand  {
 		$swap = TRUE;
 
 		//for each card that needs a swap
-		for($i=0;$i<$cardCount AND $swap;$i++)
+		for($i=0;$i<$cardCount && $swap;$i++)
 		{
 			//set the swap to false
 			//take the first card if it is less than the next card
