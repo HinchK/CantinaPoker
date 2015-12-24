@@ -32,7 +32,6 @@ class PlayingCard {
 	public function displayCard()
 	{
 		return " " . key($this->value) . " of " . key($this->suit) . " ";
-//		echo "[ " . key($this->value) . " of " . key($this->suit) . " ]";
 	}
 }
-?>
+

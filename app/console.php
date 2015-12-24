@@ -9,5 +9,4 @@ $console = new Application('Zeeto PHP Practical','0.1.1');
 $console->addCommands([
     new DealPokerCommand()
 ]);
-//include ('poker.php');
 $console->run();

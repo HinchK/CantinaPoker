@@ -119,15 +119,10 @@ class DealPokerCommand extends Command
         ;
         $winningHand = $pokerGame->getWinner();
 
-//        echo "printing winninghand";
-//        print_r($winningHand);
-
         $table = new Table($this->output);
-
         $table->setRows([
             $winningHand
         ]);
-
         $table->render();
 
     }
@@ -152,7 +147,6 @@ class DealPokerCommand extends Command
         $table->setRows([
             $myHand
         ]);
-
         $table->render($this->output);
 
     }
